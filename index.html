@@ -679,6 +679,26 @@
     .lang-opt-name { font-size: 0.88rem; font-weight: 600; color: var(--hi); }
     .lang-opt-desc { font-size: 0.76rem; color: var(--mid); margin-top: 2px; }
 
+
+    /* ── CODED ITEMS ── */
+    .coded-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: var(--r-md);
+      border: 1px solid var(--border); background: var(--s2);
+      cursor: pointer; transition: all var(--t);
+    }
+    .coded-item:hover { border-color: var(--pink-b); transform: translateX(3px); }
+    .coded-thumb {
+      width: 44px; height: 44px; border-radius: var(--r-md);
+      background: var(--s3); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .coded-meta { flex: 1; }
+    .coded-name { font-size: 0.88rem; font-weight: 600; color: var(--hi); }
+    .coded-desc { font-size: 0.76rem; color: var(--mid); margin-top: 3px; line-height: 1.5; }
+    .coded-arrow { font-size: 0.75rem; color: var(--lo); flex-shrink: 0; }
+
   </style>
 </head>
 <body>
@@ -759,6 +779,7 @@
       <div class="subnav__item on"  onclick="showSection('about', this)" data-t="nav.about">About Me</div>
       <div class="subnav__item"     onclick="showSection('story', this)" data-t="nav.story">My Story</div>
       <div class="subnav__item"     onclick="showSection('stack', this)" data-t="nav.stk">My Stack</div>
+      <div class="subnav__item"     onclick="showSection('coded', this)" data-t="nav.coded">Coded</div>
     </div>
 
     <!-- About Me section -->
@@ -849,15 +870,32 @@
               <span class="stack-tag cpp">C++</span>
             </div>
           </div>
-          <div class="stack-group" style="margin-top:16px;">
-            <div class="stack-group-title" data-t="stack.web">My Web Projects</div>
-            <div class="stack-tags">
-              <span class="stack-tag" style="cursor:pointer;border-color:var(--pink-b);color:var(--pink);display:inline-flex;align-items:center;gap:6px;" onclick="openMyWeb()">
-                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i>ShiroN's Garden
-              </span>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Coded section -->
+    <div id="sec-coded" style="display:none;">
+      <div class="sec-label">
+        <i class="fa-solid fa-code"></i>
+        <span data-t="label.coded">Coded</span>
+      </div>
+      <div class="card">
+        <div class="card__head"><i class="fa-solid fa-globe"></i> <span data-t="card.coded">Projects I coded from scratch</span></div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+
+          <div class="coded-item" onclick="openMyWeb()">
+            <div class="coded-thumb">
+              <i class="fa-solid fa-seedling" style="font-size:1.4rem;color:var(--pink);"></i>
             </div>
-            <div class="about-text" style="margin-top:8px;font-size:0.8rem;color:var(--lo);">This is basically the same website you're on right now — built from scratch with pure HTML, CSS & JS.</div>
+            <div class="coded-meta">
+              <div class="coded-name">ShiroN's Garden</div>
+              <div class="coded-desc">This website — a personal portfolio built from scratch using pure HTML, CSS &amp; JS. No frameworks, no libraries, just code.</div>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square coded-arrow"></i>
           </div>
+
         </div>
       </div>
     </div>
@@ -939,6 +977,18 @@
 
   <script>
     // ── DATA FIRST (must be before any function calls) ──
+
+    // Rewrite GitHub raw URLs to use smaller CDN-served images for thumbnails
+    function thumbUrl(url) {
+      if (!url) return '';
+      // Convert github blob URL to raw.githubusercontent for CDN resize
+      if (url.includes('github.com') && url.includes('?raw=true')) {
+        return url.replace('github.com', 'raw.githubusercontent.com')
+                  .replace('/blob/', '/')
+                  .replace('?raw=true', '') + '?w=480&auto=webp';
+      }
+      return url;
+    }
 
     const ARTWORKS = [
       {
@@ -1070,9 +1120,10 @@ saba channel @SamekoSaba`,
           if (cs) {
             card.innerHTML = `<div class="art-thumb" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:var(--s2);"><span style="font-size:0.82rem;color:var(--lo)">coming soon...</span></div>`;
           } else if (item.imgSrc) {
+            // Use a smaller version by capping display width and deferring load
             // Real image → fill the card, name shown only in title bar at bottom
             card.innerHTML = `<div class="art-thumb" style="aspect-ratio:1/1;position:relative;background:var(--s2);">
-                <img src="${item.imgSrc}" alt="${item.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.src='';this.closest('.art-thumb').style.background='${item.previewColor||'var(--s2)'}';"/>
+                <img src="${thumbUrl(item.imgSrc)}" alt="${item.name}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.src='';this.closest('.art-thumb').style.background='${item.previewColor||'var(--s2)'}';"/>
                 <div class="art-thumb-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                 <div class="art-title-bar"><div class="at-name">${item.name}</div></div>
                </div>`;
@@ -1226,7 +1277,7 @@ saba channel @SamekoSaba`,
     }
 
     function showSection(id, el) {
-      ['about','story','stack'].forEach(s => {
+      ['about','story','stack','coded'].forEach(s => {
         const el2 = document.getElementById('sec-' + s);
         if (el2) el2.style.display = s === id ? '' : 'none';
       });
@@ -1267,7 +1318,11 @@ saba channel @SamekoSaba`,
       mix: {
         'nav.home':'Home','nav.art':'My Artworks','nav.vid':'My Video','nav.study':'Google Site',
         'nav.about':'About Me','nav.story':'My Story','nav.stk':'My Stack',
+        'nav.coded':'Coded',
+        'nav.coded':'Coded',
         'label.myinfo':'My Info','label.about':'About Me','label.story':'My Story','label.stack':'My Stack',
+        'label.coded':'Coded','card.coded':'Projects I coded from scratch',
+        'label.coded':'Coded','card.coded':'Projects I coded from scratch',
         'card.profile':'Profile',
         'banner.name':'ShiroN','banner.sub':'白貓 · Hsinchu, Taiwan 🇹🇼',
         'chip.creator':'Creator','chip.editor':'Video Editor',
@@ -1291,7 +1346,9 @@ saba channel @SamekoSaba`,
       zh: {
         'nav.home':'首頁','nav.art':'我的畫作','nav.vid':'我的影片','nav.study':'Google 網站',
         'nav.about':'關於我','nav.story':'我的故事','nav.stk':'我的技術',
+        'nav.coded':'我的程式作品',
         'label.myinfo':'個人資訊','label.about':'關於我','label.story':'我的故事','label.stack':'我的技術',
+        'label.coded':'程式作品','card.coded':'我從零開始寫的網站',
         'card.profile':'個人簡介',
         'banner.name':'ShiroN','banner.sub':'白貓 · 台灣 新竹 🇹🇼',
         'chip.creator':'創作者','chip.editor':'影片剪輯',
