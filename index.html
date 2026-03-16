@@ -708,8 +708,8 @@
     <a href="#" class="nav__logo" onclick="navigate('home'); return false;"><span class="logo-white">ShiroN's </span><span class="logo-pink">Garden</span></a>
     <div class="nav__links">
       <span class="nav__link on"  onclick="navigate('home')" data-t="nav.home">Home</span>
-      <span class="nav__link"     onclick="navigate('art')" data-t="nav.art">My Artworks</span>
-      <span class="nav__link"     onclick="navigate('vid')" data-t="nav.vid">My Video</span>
+      <span class="nav__link"     onclick="navigate('art')" data-t="nav.art">Artwork</span>
+      <span class="nav__link"     onclick="navigate('vid')" data-t="nav.vid">Video</span>
       <span class="nav__link"     onclick="navigate('study')" data-t="nav.study">Google Site</span>
     </div>
     <div class="nav__right">
@@ -733,8 +733,8 @@
   <div id="mobile-menu" class="mobile-menu">
     <div class="mobile-menu__links">
       <span class="mobile-link on" onclick="navigate('home');closeMobileMenu()" data-t="nav.home">Home</span>
-      <span class="mobile-link" onclick="navigate('art');closeMobileMenu()" data-t="nav.art">My Artworks</span>
-      <span class="mobile-link" onclick="navigate('vid');closeMobileMenu()" data-t="nav.vid">My Video</span>
+      <span class="mobile-link" onclick="navigate('art');closeMobileMenu()" data-t="nav.art">Artwork</span>
+      <span class="mobile-link" onclick="navigate('vid');closeMobileMenu()" data-t="nav.vid">Video</span>
       <span class="mobile-link" onclick="navigate('study');closeMobileMenu()" data-t="nav.study">Google Site</span>
     </div>
     <div class="mobile-menu__actions">
@@ -1268,7 +1268,7 @@ saba channel @SamekoSaba`,
       subnav.classList.toggle('hidden', id !== 'home');
       document.querySelectorAll('.nav__link').forEach(l => l.classList.remove('on'));
       document.querySelectorAll('.nav__link').forEach(l => {
-        if (l.textContent.trim() === {home:'Home',art:'My Artworks',vid:'My Video',study:'Google Sites'}[id])
+        if (l.textContent.trim() === {home:'Home',art:'Artwork',vid:'Video',study:'Google Site'}[id])
           l.classList.add('on');
       });
       currentPage = id;
@@ -1317,14 +1317,14 @@ saba channel @SamekoSaba`,
     const TRANSLATIONS = {
       mix: {
         // UI
-        'nav.home':'Home','nav.art':'My Artworks','nav.vid':'My Video','nav.study':'Google Site','nav.coded':'Coded',
+        'nav.home':'Home','nav.art':'Artwork','nav.vid':'Video','nav.study':'Google Site','nav.coded':'Coded',
         'nav.about':'About Me','nav.story':'My Story','nav.stk':'My Stack',
         'label.myinfo':'My Info','label.about':'About Me','label.story':'My Story','label.stack':'My Stack',
         'label.coded':'Coded','card.coded':'Projects I coded from scratch','card.profile':'Profile',
         'banner.name':'ShiroN','banner.sub':'白貓 · Hsinchu, Taiwan 🇹🇼',
         'chip.creator':'Creator','chip.editor':'Video Editor',
         'stack.frontend':'Frontend','stack.backend':'Backend','stack.web':'My Web Projects',
-        'search.art':'Search artworks...','search.vid':'Search videos...',
+        'search.art':'Search artwork...','search.vid':'Search videos...',
         'footer.by':'Maintained with ♥ by ShiroN',
         'grid.end':"That's everything! >A<",
         'disc.title':'📄 Disclaimer',
@@ -1340,14 +1340,14 @@ saba channel @SamekoSaba`,
         '$myweb.body': `You're about to visit a website I personally designed and built from scratch. It's a little corner of the internet that's entirely my own — hope you enjoy it! 🌸`
       },
       en: {
-        'nav.home':'Home','nav.art':'My Artworks','nav.vid':'My Video','nav.study':'Google Site','nav.coded':'Coded',
+        'nav.home':'Home','nav.art':'Artwork','nav.vid':'Video','nav.study':'Google Site','nav.coded':'Coded',
         'nav.about':'About Me','nav.story':'My Story','nav.stk':'My Stack',
         'label.myinfo':'My Info','label.about':'About Me','label.story':'My Story','label.stack':'My Stack',
         'label.coded':'Coded','card.coded':'Projects I coded from scratch','card.profile':'Profile',
         'banner.name':'ShiroN','banner.sub':'White Cat · Hsinchu, Taiwan 🇹🇼',
         'chip.creator':'Creator','chip.editor':'Video Editor',
         'stack.frontend':'Frontend','stack.backend':'Backend','stack.web':'My Web Projects',
-        'search.art':'Search artworks...','search.vid':'Search videos...',
+        'search.art':'Search artwork...','search.vid':'Search videos...',
         'footer.by':'Maintained with ♥ by ShiroN',
         'grid.end':"That's everything! >A<",
         'disc.title':'📄 Disclaimer',
@@ -1362,7 +1362,7 @@ saba channel @SamekoSaba`,
         '$myweb.body': `You're about to visit a website I personally designed and built from scratch. It's a little corner of the internet that's entirely my own — hope you enjoy it! 🌸`
       },
       zh: {
-        'nav.home':'首頁','nav.art':'我的畫作','nav.vid':'我的影片','nav.study':'Google 網站','nav.coded':'程式作品',
+        'nav.home':'首頁','nav.art':'畫作','nav.vid':'影片','nav.study':'Google 網站','nav.coded':'程式作品',
         'nav.about':'關於我','nav.story':'我的故事','nav.stk':'我的技術',
         'label.myinfo':'個人資訊','label.about':'關於我','label.story':'我的故事','label.stack':'我的技術',
         'label.coded':'程式作品','card.coded':'我從零開始寫的網站','card.profile':'個人簡介',
