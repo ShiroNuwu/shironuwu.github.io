@@ -1265,10 +1265,9 @@ saba channel @SamekoSaba`,
       document.getElementById('pg-' + id).style.display = '';
       const subnav = document.getElementById('subnav');
       subnav.classList.toggle('hidden', id !== 'home');
-      document.querySelectorAll('.nav__link').forEach(l => l.classList.remove('on'));
-      document.querySelectorAll('.nav__link').forEach(l => {
-        if (l.textContent.trim() === {home:'Home',art:'Artwork',vid:'Video',study:'Google Site'}[id])
-          l.classList.add('on');
+      const _label = (window._navLabels || {home:'Home',art:'Artwork',vid:'Video',study:'Google Site'})[id];
+      document.querySelectorAll('.nav__link, .mobile-link').forEach(l => {
+        l.classList.toggle('on', l.textContent.trim() === _label);
       });
       currentPage = id;
       window.scrollTo({top:0, behavior:'smooth'});
